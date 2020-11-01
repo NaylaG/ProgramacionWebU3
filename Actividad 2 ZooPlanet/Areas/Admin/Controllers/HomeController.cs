@@ -45,7 +45,7 @@ namespace Actividad_2_ZooPlanet.Areas.Admin.Controllers
             {        
                 EspeciesRepository repo = new EspeciesRepository(context);
                 repo.Insert(vm.Especie);
-
+               
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
             catch (Exception ex)
@@ -191,7 +191,7 @@ namespace Actividad_2_ZooPlanet.Areas.Admin.Controllers
 
                 ModelState.AddModelError("", ex.Message);
                 
-                return View(vm.Especie.Id);
+                return View(vm);
             }
         }
 
