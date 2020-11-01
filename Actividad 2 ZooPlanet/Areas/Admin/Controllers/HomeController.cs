@@ -22,13 +22,13 @@ namespace Actividad_2_ZooPlanet.Areas.Admin.Controllers
             context = ctx;
             Environment = env;
         }
-
         public IActionResult Index()
         {
             EspeciesRepository repos = new EspeciesRepository(context);
 
             return View(repos.GetAll());
         }
+
 
         public IActionResult Agregar()
         {
@@ -38,7 +38,6 @@ namespace Actividad_2_ZooPlanet.Areas.Admin.Controllers
             vm.Clasifiacacion = claseRepo.GetAll();
             return View(vm);
         }
-
         [HttpPost]
         public IActionResult Agregar(EspeciesViewModel vm)
         {
@@ -48,6 +47,7 @@ namespace Actividad_2_ZooPlanet.Areas.Admin.Controllers
 
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
+
 
         public IActionResult Editar(int id)
         {
@@ -83,15 +83,14 @@ namespace Actividad_2_ZooPlanet.Areas.Admin.Controllers
 
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
+
+
         public IActionResult Eliminar(int id)
         {
             EspeciesRepository repos = new EspeciesRepository(context);
 
             return View(repos.GetEspecie(id));
         }
-
-
-
         [HttpPost]
         public IActionResult Eliminar(Especies es)
         {
@@ -107,6 +106,7 @@ namespace Actividad_2_ZooPlanet.Areas.Admin.Controllers
 
             return View(especie);
         }
+
 
 
         public IActionResult Imagen(int id)

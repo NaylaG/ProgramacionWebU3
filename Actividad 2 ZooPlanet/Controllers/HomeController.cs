@@ -18,7 +18,7 @@ namespace Actividad_2_ZooPlanet.Controllers
             return View(clasesRepository.GetAll().ToList());
             
         }
-
+        [Route("Clasificación/{id}")]
         public IActionResult Clase(string Id)
         {
             animalesContext ctx = new animalesContext();
