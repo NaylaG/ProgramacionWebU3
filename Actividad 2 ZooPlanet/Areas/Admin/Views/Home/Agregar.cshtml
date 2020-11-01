@@ -21,7 +21,9 @@
     <label>Observaciones:</label>
     <textarea asp-for="Especie.Observaciones"></textarea>
    
+    <p>
         @Html.ValidationSummary()
+    </p>
     
     <input type="submit" value="Agregar" />
     <a href="~/Admin">

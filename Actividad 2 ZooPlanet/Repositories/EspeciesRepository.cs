@@ -30,10 +30,47 @@ namespace Actividad_2_ZooPlanet.Repositories
 			return Context.Especies.Include(x => x.IdClaseNavigation).Where(x => x.IdClaseNavigation.Nombre == Id).OrderBy(x => x.Especie);
 		}
 
-        public Especies GetEspecie(int id)
+        public override Especies GetById(object id)
         {
-			return Context.Especies.Include(x=>x.IdClaseNavigation).FirstOrDefault(x => x.Id == id);
-        }
+            return Context.Especies.Include(x => x.IdClaseNavigation).FirstOrDefault(x => x.Id == (int)id);
+		}
+
+        public override bool Validate(Especies entidad)
+        {
+            if(string.IsNullOrWhiteSpace(entidad.Especie))
+		    {
+				throw new Exception("Debe indicar el nombre de la espacie");
+			}
+			if (string.IsNullOrWhiteSpace(entidad.Habitat))
+			{
+				throw new Exception("Debe indicar el habitat de la espacie");
+			}
+			
+			if (entidad.Peso==null || entidad.Peso<=0)
+			{
+				throw new Exception("Debe indicar el peso de la espacie");
+			}
+			if (entidad.Tamaño==null|| entidad.Tamaño<=0)
+			{
+				throw new Exception("Debe indicar un tamaño valido a la espacie");
+			}
+			if (string.IsNullOrWhiteSpace(entidad.Observaciones))
+			{
+				throw new Exception("Debe indicar las observaciones de la espacie");
+			}
+			if (Context.Especies.Any(x=>x.Especie == entidad.Especie&& x.Id!=entidad.Id))
+            {
+				throw new Exception("Ya existe una especie registrada con el mismo nombre");
+			}
+
+			if (!Context.Clase.Any(x=>x.Id==entidad.IdClase))
+			{
+				throw new Exception("No existe la clasificación especificada");
+			}
+
+
+			return true;
+		}
 
     }
 }
